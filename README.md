@@ -4,16 +4,17 @@
 ## Installation
 
 ```sh
-$ npm install --save fp-block
+git clone https://github.com/afrontend/fp-block.git
+cd fp-block
+npm install
 ```
 
 ## Usage
 
-```js
-const fpBlock = require('fp-block');
-
-fpBlock('Rainbow');
+```sh
+$ npm start
 ```
+
 ## License
 
 MIT © [Bob Hwang](https://agvim.wordpress.com)
