@@ -33,7 +33,7 @@ const startGame = (rows = 15, columns = 15) => {
   process.stdin.resume();
 
   const format = ary =>
-    ary.map(r => r.map(item => (item.color === "grey" ? " " : "■")).join(" "));
+    ary.map(r => r.map(item => (fpBlock.isBlank(item) ? " " : "■")).join(" "));
 
   global.timer = setInterval(() => {
     global.state = fpBlock.moveBlockTable(global.state);
