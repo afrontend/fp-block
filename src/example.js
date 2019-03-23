@@ -10,9 +10,7 @@ program
   .option("-f, --full", "terminal full size")
   .parse(process.argv);
 
-const getMark = (item) => {
-  return item.color === "yellow" ? "*" : "■";
-}
+const getMark = item => (item.color === "yellow" ? "*" : "■");
 
 const startGame = (rows = 15, columns = 15) => {
   const global = {
@@ -37,7 +35,9 @@ const startGame = (rows = 15, columns = 15) => {
   process.stdin.resume();
 
   const format = ary =>
-    ary.map(r => r.map(item => (fpBlock.isBlank(item) ? " " : getMark(item))).join(" "));
+    ary.map(r =>
+      r.map(item => (fpBlock.isBlank(item) ? " " : getMark(item))).join(" ")
+    );
 
   global.timer = setInterval(() => {
     global.state = fpBlock.moveBlockTable(global.state);
