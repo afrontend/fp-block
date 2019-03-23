@@ -1,6 +1,8 @@
 # fp-block [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url] [![Coverage percentage][coveralls-image]][coveralls-url]
 > library for fp-block-game
 
+![console block screenshot](https://agvim.files.wordpress.com/2019/03/fp-block.png "console block screenshot")
+
 ## Installation
 
 ```sh
@@ -9,7 +11,7 @@ cd fp-block
 npm install
 ```
 
-## Usage
+## Run
 
 ```sh
 $ npm start
