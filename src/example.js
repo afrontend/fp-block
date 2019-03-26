@@ -14,7 +14,7 @@ const getMark = item => (item.color === "yellow" ? "*" : "■");
 
 const startGame = (rows = 15, columns = 15) => {
   const global = {
-    state: fpBlock.initBlockTable(rows, columns)
+    state: fpBlock.init(rows, columns)
   };
 
   keypress(process.stdin);
@@ -27,7 +27,7 @@ const startGame = (rows = 15, columns = 15) => {
       process.exit();
     }
     if (key) {
-      global.state = fpBlock.keyBlockTable(key.name, global.state);
+      global.state = fpBlock.key(key.name, global.state);
     }
   });
 
@@ -40,11 +40,11 @@ const startGame = (rows = 15, columns = 15) => {
     );
 
   global.timer = setInterval(() => {
-    global.state = fpBlock.moveBlockTable(global.state);
+    global.state = fpBlock.tick(global.state);
     if (!program.full) {
       clear();
     }
-    console.log(format(fpBlock.joinBlockTable(global.state)));
+    console.log(format(fpBlock.join(global.state)));
   }, 200);
 };
 
