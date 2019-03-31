@@ -35,9 +35,11 @@ const startGame = (rows = 15, columns = 15) => {
   process.stdin.resume();
 
   const format = ary =>
-    ary.map(r =>
-      r.map(item => (fpBlock.isBlank(item) ? " " : getMark(item))).join(" ")
-    ).join(" \r\n");
+    ary
+      .map(r =>
+        r.map(item => (fpBlock.isBlank(item) ? " " : getMark(item))).join(" ")
+      )
+      .join("\r\n");
 
   global.timer = setInterval(() => {
     global.state = fpBlock.tick(global.state);
