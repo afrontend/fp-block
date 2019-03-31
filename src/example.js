@@ -37,7 +37,7 @@ const startGame = (rows = 15, columns = 15) => {
   const format = ary =>
     ary.map(r =>
       r.map(item => (fpBlock.isBlank(item) ? " " : getMark(item))).join(" ")
-    );
+    ).join(" \r\n");
 
   global.timer = setInterval(() => {
     global.state = fpBlock.tick(global.state);
@@ -50,7 +50,7 @@ const startGame = (rows = 15, columns = 15) => {
 
 const activate = program => {
   if (program.full) {
-    startGame(process.stdout.rows - 1, process.stdout.columns / 2 - 4);
+    startGame(process.stdout.rows - 1, process.stdout.columns / 2 - 1);
   } else {
     startGame();
   }
