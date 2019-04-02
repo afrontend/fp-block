@@ -12,6 +12,10 @@ program
 
 const getMark = item => (item.color === "yellow" ? "*" : "■");
 
+const dump = (state) => {
+  console.log(JSON.stringify(state));
+}
+
 const startGame = (rows = 15, columns = 15) => {
   const global = {
     state: fpBlock.init(rows, columns)
@@ -24,6 +28,10 @@ const startGame = (rows = 15, columns = 15) => {
       process.exit();
     }
     if (key && key.name === "q") {
+      process.exit();
+    }
+    if (key && key.ctrl && key.name === "d") {
+      dump(global.state);
       process.exit();
     }
     if (key) {
