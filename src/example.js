@@ -3,7 +3,7 @@ const _ = require("lodash");
 const clear = require("clear");
 const keypress = require("keypress");
 const program = require("commander");
-const fpBlock = require("../lib/index.js");
+const game = require("../lib/index.js");
 const pkg = require("../package.json");
 
 program
@@ -27,7 +27,7 @@ const load = global => {
 
 const startGame = (rows = 15, columns = 15) => {
   const global = {
-    state: fpBlock.init(rows, columns)
+    state: game.init(rows, columns)
   };
 
   keypress(process.stdin);
@@ -50,7 +50,7 @@ const startGame = (rows = 15, columns = 15) => {
       process.exit();
     }
     if (key) {
-      global.state = fpBlock.key(key.name, global.state);
+      global.state = game.key(key.name, global.state);
     }
   });
 
@@ -60,16 +60,16 @@ const startGame = (rows = 15, columns = 15) => {
   const format = ary =>
     ary
       .map(r =>
-        r.map(item => (fpBlock.isBlank(item) ? " " : getMark(item))).join(" ")
+        r.map(item => (game.isBlank(item) ? " " : getMark(item))).join(" ")
       )
       .join("\r\n");
 
   global.timer = setInterval(() => {
-    global.state = fpBlock.tick(global.state);
+    global.state = game.tick(global.state);
     if (!program.full) {
       clear();
     }
-    console.log(format(fpBlock.join(global.state)));
+    console.log(format(game.join(global.state)));
   }, 200);
 };
 
