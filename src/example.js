@@ -11,7 +11,7 @@ program
   .option("-f, --full", "terminal full size")
   .parse(process.argv);
 
-const getMark = item => (item.color === "yellow" ? "*" : "■");
+const getMark = item => (game.isMissileItem(item) ? "*" : "■");
 
 const dump = state => {
   console.log(JSON.stringify(state));
@@ -60,7 +60,7 @@ const startGame = (rows = 15, columns = 15) => {
   const format = ary =>
     ary
       .map(r =>
-        r.map(item => (game.isBlank(item) ? " " : getMark(item))).join(" ")
+        r.map(item => (game.isBlankItem(item) ? " " : getMark(item))).join(" ")
       )
       .join("\r\n");
 
