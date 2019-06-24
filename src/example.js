@@ -62,7 +62,7 @@ const startGame = (rows = 15, columns = 15) => {
       .map(r =>
         r.map(item => (game.isBlankItem(item) ? " " : getMark(item))).join(" ")
       )
-      .join("\r\n");
+      .join("|\r\n");
 
   global.timer = setInterval(() => {
     global.state = game.tick(global.state);
