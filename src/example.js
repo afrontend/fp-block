@@ -5,13 +5,21 @@ const keypress = require("keypress");
 const program = require("commander");
 const game = require("../lib/index.js");
 const pkg = require("../package.json");
+const chalk = require("chalk");
 
 program
   .version(pkg.version)
   .option("-f, --full", "terminal full size")
   .parse(process.argv);
 
-const getMark = item => (game.isMissileItem(item) ? "*" : "■");
+function getColorItem(item) {
+  if (chalk[item.color]) {
+    return chalk[item.color]("*");
+  }
+  return chalk.red("*");
+}
+
+const getMark = item => (game.isMissileItem(item) ? getColorItem(item) : "■");
 
 const dump = state => {
   console.log(JSON.stringify(state));
