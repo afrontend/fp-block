@@ -18,7 +18,7 @@ describe("format", () => {
     const state = game.init(5, 5);
     const result = format(game.join(state));
     const lines = result.split("|\r\n");
-    lines.forEach(line => {
+    lines.forEach((line) => {
       // 5열이면 항목 사이 공백 4개 → split(' ')의 길이는 5 이상
       expect(line.split(" ").length).toBeGreaterThanOrEqual(5);
     });

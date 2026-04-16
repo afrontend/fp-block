@@ -3,6 +3,10 @@ name: Update Demo GIF
 on:
   push:
     branches: [master]
+    paths:
+      - 'src/**'
+      - 'lib/**'
+      - 'scripts/**'
 
 permissions:
   contents: write

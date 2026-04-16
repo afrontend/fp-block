@@ -8,13 +8,13 @@ const getColorItem = (item, char) => {
   return chalk.red(char);
 };
 
-const getMark = item =>
+const getMark = (item) =>
   game.isMissileItem(item) ? getColorItem(item, "*") : getColorItem(item, "■");
 
-const format = ary =>
+const format = (ary) =>
   ary
-    .map(r =>
-      r.map(item => (game.isBlankItem(item) ? " " : getMark(item))).join(" ")
+    .map((r) =>
+      r.map((item) => (game.isBlankItem(item) ? " " : getMark(item))).join(" "),
     )
     .join("|\r\n");
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
+const _ = require("lodash");
 const clear = require("clear");
 const keypress = require("keypress");
-const program = require("commander");
+const { program } = require("commander");
 const game = require("../lib/index.js");
 const pkg = require("../package.json");
 const { format } = require("./format.js");
@@ -11,21 +12,21 @@ program
   .option("-f, --full", "terminal full size")
   .parse(process.argv);
 
-const dump = state => {
+const dump = (state) => {
   console.log(JSON.stringify(state));
 };
 
-const save = gameContext => {
-  gameContext.savedState = require("lodash").cloneDeep(gameContext.state);
+const save = (gameContext) => {
+  gameContext.savedState = _.cloneDeep(gameContext.state);
 };
 
-const restore = gameContext => {
+const restore = (gameContext) => {
   gameContext.state = gameContext.savedState;
 };
 
 const startGame = (rows = 15, columns = 15) => {
   const gameContext = {
-    state: game.init(rows, columns)
+    state: game.init(rows, columns),
   };
 
   keypress(process.stdin);
@@ -57,19 +58,19 @@ const startGame = (rows = 15, columns = 15) => {
 
   gameContext.timer = setInterval(() => {
     gameContext.state = game.tick(gameContext.state);
-    if (!program.full) {
+    if (!program.opts().full) {
       clear();
     }
     console.log(format(game.join(gameContext.state)));
   }, 200);
 };
 
-const activate = program => {
-  if (program.full) {
+const activate = () => {
+  if (program.opts().full) {
     startGame(process.stdout.rows - 1, process.stdout.columns / 2 - 1);
   } else {
     startGame();
   }
 };
 
-activate(program);
+activate();

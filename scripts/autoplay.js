@@ -33,7 +33,7 @@ const getColoredCells = (panel, color) => {
   return cells;
 };
 
-const avgCol = cells =>
+const avgCol = (cells) =>
   cells.length === 0
     ? -1
     : cells.reduce((sum, p) => sum + p.c, 0) / cells.length;
@@ -43,13 +43,13 @@ const avgCol = cells =>
 const willCollide = (shuttleCells, meteoriteCells) => {
   if (meteoriteCells.length === 0) return false;
 
-  const meteoriteMaxRow = Math.max(...meteoriteCells.map(p => p.r));
+  const meteoriteMaxRow = Math.max(...meteoriteCells.map((p) => p.r));
   if (meteoriteMaxRow < ROWS - 1 - EVADE_ROW_THRESHOLD) return false;
 
-  const shuttleMinCol = Math.min(...shuttleCells.map(p => p.c));
-  const shuttleMaxCol = Math.max(...shuttleCells.map(p => p.c));
-  const meteoriteMinCol = Math.min(...meteoriteCells.map(p => p.c));
-  const meteoriteMaxCol = Math.max(...meteoriteCells.map(p => p.c));
+  const shuttleMinCol = Math.min(...shuttleCells.map((p) => p.c));
+  const shuttleMaxCol = Math.max(...shuttleCells.map((p) => p.c));
+  const meteoriteMinCol = Math.min(...meteoriteCells.map((p) => p.c));
+  const meteoriteMaxCol = Math.max(...meteoriteCells.map((p) => p.c));
 
   return meteoriteMinCol <= shuttleMaxCol && meteoriteMaxCol >= shuttleMinCol;
 };

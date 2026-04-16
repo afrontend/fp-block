@@ -24,7 +24,7 @@ npm start
 |---|---|
 | `-f, --full` | Terminal full size mode |
 
-## Key Bindings
+## Controls
 
 | Key | Action |
 |---|---|
@@ -35,14 +35,6 @@ npm start
 | `l` | Load saved state |
 | `q` / `Ctrl+C` | Quit |
 | `Ctrl+D` | Dump state (JSON) and quit |
-
-## Game Elements
-
-| Element | Color | Description |
-|---|---|---|
-| Shuttle | Pink | Player-controlled ship at the bottom |
-| Meteorite | Blue | Enemy that falls from the top, random shape (7 cells) |
-| Missile | Yellow | Fired upward from the shuttle |
 
 ## Library API
 

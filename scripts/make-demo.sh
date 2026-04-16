@@ -33,8 +33,10 @@ echo "▶ Recording autoplay..."
 asciinema rec \
   --command "node $SCRIPT_DIR/autoplay.js" \
   --overwrite \
-  --cols 36 \
-  --rows 20 \
+  --headless \
+  --title "fp-block demo" \
+  --window-size 36x20 \
+  --output-format asciicast-v2 \
   "$CAST_FILE"
 
 echo "▶ Converting to GIF..."
