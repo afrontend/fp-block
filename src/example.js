@@ -1,41 +1,30 @@
 #!/usr/bin/env node
-const _ = require("lodash");
 const clear = require("clear");
 const keypress = require("keypress");
 const program = require("commander");
 const game = require("../lib/index.js");
 const pkg = require("../package.json");
-const chalk = require("chalk");
+const { format } = require("./format.js");
 
 program
   .version(pkg.version)
   .option("-f, --full", "terminal full size")
   .parse(process.argv);
 
-function getColorItem(item, char) {
-  if (chalk[item.color]) {
-    return chalk[item.color](char);
-  }
-  return chalk.red(char);
-}
-
-const getMark = item =>
-  game.isMissileItem(item) ? getColorItem(item, "*") : getColorItem(item, "■");
-
 const dump = state => {
   console.log(JSON.stringify(state));
 };
 
-const save = global => {
-  global.savedState = _.cloneDeep(global.state);
+const save = gameContext => {
+  gameContext.savedState = require("lodash").cloneDeep(gameContext.state);
 };
 
-const restore = global => {
-  global.state = global.savedState;
+const restore = gameContext => {
+  gameContext.state = gameContext.savedState;
 };
 
 const startGame = (rows = 15, columns = 15) => {
-  const global = {
+  const gameContext = {
     state: game.init(rows, columns)
   };
 
@@ -49,36 +38,29 @@ const startGame = (rows = 15, columns = 15) => {
       process.exit();
     }
     if (key && key.name === "s") {
-      save(global);
+      save(gameContext);
     }
     if (key && key.name === "l") {
-      restore(global);
+      restore(gameContext);
     }
     if (key && key.ctrl && key.name === "d") {
-      dump(global.state);
+      dump(gameContext.state);
       process.exit();
     }
     if (key) {
-      global.state = game.key(key.name, global.state);
+      gameContext.state = game.key(key.name, gameContext.state);
     }
   });
 
   process.stdin.setRawMode(true);
   process.stdin.resume();
 
-  const format = ary =>
-    ary
-      .map(r =>
-        r.map(item => (game.isBlankItem(item) ? " " : getMark(item))).join(" ")
-      )
-      .join("|\r\n");
-
-  global.timer = setInterval(() => {
-    global.state = game.tick(global.state);
+  gameContext.timer = setInterval(() => {
+    gameContext.state = game.tick(gameContext.state);
     if (!program.full) {
       clear();
     }
-    console.log(format(game.join(global.state)));
+    console.log(format(game.join(gameContext.state)));
   }, 200);
 };
 
