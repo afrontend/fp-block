@@ -33,7 +33,7 @@
     "pretest": "eslint .",
     "test": "jest",
     "start": "node ./src/example.js",
-    "release": "bash scripts/make-demo.sh"
+    "demo-gif": "bash scripts/make-demo.sh"
   },
   "repository": "https://github.com/afrontend/fp-block.git",
   "jest": {
