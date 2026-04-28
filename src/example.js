@@ -24,9 +24,22 @@ const restore = (gameContext) => {
   gameContext.state = gameContext.savedState;
 };
 
+const HELP_TEXT = [
+  "",
+  "  Controls:",
+  "  ← →      Move left / right",
+  "  ↑         Fire missile",
+  "  Space     Pause / resume",
+  "  s         Save state",
+  "  l         Load state",
+  "  h         Toggle this help",
+  "  q / ^C    Quit",
+].join("\r\n");
+
 const startGame = (rows = 15, columns = 15) => {
   const gameContext = {
     state: game.init(rows, columns),
+    showHelp: false,
   };
 
   keypress(process.stdin);
@@ -44,6 +57,9 @@ const startGame = (rows = 15, columns = 15) => {
     if (key && key.name === "l") {
       restore(gameContext);
     }
+    if (key && key.name === "h") {
+      gameContext.showHelp = !gameContext.showHelp;
+    }
     if (key && key.ctrl && key.name === "d") {
       dump(gameContext.state);
       process.exit();
@@ -57,11 +73,16 @@ const startGame = (rows = 15, columns = 15) => {
   process.stdin.resume();
 
   gameContext.timer = setInterval(() => {
-    gameContext.state = game.tick(gameContext.state);
+    if (!gameContext.showHelp) {
+      gameContext.state = game.tick(gameContext.state);
+    }
     if (!program.opts().full) {
       clear();
     }
     console.log(format(game.join(gameContext.state)));
+    if (gameContext.showHelp) {
+      console.log(HELP_TEXT);
+    }
   }, 200);
 };
 
