@@ -16,12 +16,12 @@ const dump = (state) => {
   console.log(JSON.stringify(state));
 };
 
-const save = (gameContext) => {
-  gameContext.savedState = structuredClone(gameContext.state);
+const save = (gameCtx) => {
+  gameCtx.savedState = structuredClone(gameCtx.state);
 };
 
-const reload = (gameContext) => {
-  gameContext.state = gameContext.savedState;
+const reload = (gameCtx) => {
+  gameCtx.state = gameCtx.savedState;
 };
 
 const HELP_TEXT = [
