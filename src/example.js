@@ -47,24 +47,18 @@ const startGame = (rows = 15, columns = 15) => {
   process.stdin.on("keypress", (ch, key) => {
     if (key && key.ctrl && key.name === "c") {
       process.exit();
-    }
-    if (key && key.name === "q") {
+    } else if (key && key.name === "q") {
       process.exit();
-    }
-    if (key && key.name === "s") {
+    } else if (key && key.name === "s") {
       save(gameContext);
-    }
-    if (key && key.name === "l") {
+    } else if (key && key.name === "l") {
       reload(gameContext);
-    }
-    if (key && key.name === "h") {
+    } else if (key && key.name === "h") {
       gameContext.showHelp = !gameContext.showHelp;
-    }
-    if (key && key.ctrl && key.name === "d") {
+    } else if (key && key.ctrl && key.name === "d") {
       dump(gameContext.state);
       process.exit();
-    }
-    if (key) {
+    } else if (key) {
       gameContext.state = game.key(key.name, gameContext.state);
     }
   });
