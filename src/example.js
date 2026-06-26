@@ -5,6 +5,7 @@ const { program } = require("commander");
 const game = require("../lib/index.js");
 const pkg = require("../package.json");
 const { format } = require("./format.js");
+const chalk = require("chalk");
 
 program
   .version(pkg.version)
@@ -85,11 +86,32 @@ const startGame = (rows = 15, columns = 15) => {
   }, 200);
 };
 
+const runCountdown = (rows, columns) => {
+  const counts = [5, 4, 3, 2, 1];
+  let i = 0;
+
+  const tick = () => {
+    clear();
+    console.log("\r\n");
+    console.log(chalk.yellow("  fp-block\r\n"));
+    console.log(chalk.cyan("  Press [ h ] for help\r\n"));
+    console.log(chalk.white("  Starting in... ") + chalk.bold.green(counts[i]));
+    i++;
+    if (i < counts.length) {
+      setTimeout(tick, 1000);
+    } else {
+      setTimeout(() => startGame(rows, columns), 1000);
+    }
+  };
+
+  tick();
+};
+
 const activate = () => {
   if (program.opts().full) {
-    startGame(process.stdout.rows - 1, process.stdout.columns / 2 - 1);
+    runCountdown(process.stdout.rows - 1, process.stdout.columns / 2 - 1);
   } else {
-    startGame();
+    runCountdown();
   }
 };
 
