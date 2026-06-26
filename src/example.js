@@ -20,7 +20,7 @@ const save = (gameContext) => {
   gameContext.savedState = structuredClone(gameContext.state);
 };
 
-const restore = (gameContext) => {
+const reload = (gameContext) => {
   gameContext.state = gameContext.savedState;
 };
 
@@ -55,7 +55,7 @@ const startGame = (rows = 15, columns = 15) => {
       save(gameContext);
     }
     if (key && key.name === "l") {
-      restore(gameContext);
+      reload(gameContext);
     }
     if (key && key.name === "h") {
       gameContext.showHelp = !gameContext.showHelp;
