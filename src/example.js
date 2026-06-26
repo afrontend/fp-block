@@ -106,7 +106,10 @@ const runCountdown = (rows, columns) => {
 
 const activate = () => {
   if (program.opts().full) {
-    runCountdown(process.stdout.rows - 1, Math.floor(process.stdout.columns / 2) - 1);
+    runCountdown(
+      process.stdout.rows - 1,
+      Math.floor(process.stdout.columns / 2) - 1,
+    );
   } else {
     runCountdown();
   }
