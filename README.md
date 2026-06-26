@@ -9,6 +9,12 @@
 npx fp-block
 ```
 
+Use `--full` to fill the entire terminal window:
+
+```sh
+npx fp-block --full
+```
+
 ## Run with source
 
 ```sh
@@ -18,19 +24,20 @@ npm install
 npm start
 ```
 
-## CLI Options
+### CLI options
 
 | Option | Description |
-|---|---|
+|--------|-------------|
 | `-f, --full` | Terminal full size mode |
 
 ## Controls
 
 | Key | Action |
-|---|---|
-| `←` / `→` | Move shuttle left / right |
+|-----|--------|
+| `←` `→` | Move left / right |
 | `↑` | Fire missile |
-| `Space` | Pause / Resume |
+| `Space` | Pause / resume |
+| `h` | Toggle help |
 | `s` | Save state |
 | `l` | Load saved state |
 | `q` / `Ctrl+C` | Quit |
