@@ -26,22 +26,28 @@ npm start
 
 ### CLI options
 
-| Option | Description |
-|--------|-------------|
-| `-f, --full` | Terminal full size mode |
+| 옵션 | 설명 |
+|--------|------|
+| `-f, --full` | 터미널 전체 크기로 게임판을 표시한다. |
+| `--rows <number>` | 게임판 행 수를 지정한다. |
+| `--columns <number>` | 게임판 열 수를 지정한다. |
+
+`--full`과 크기 옵션을 함께 사용하면 `--full`이 우선한다.
 
 ## Controls
 
-| Key | Action |
-|-----|--------|
-| `←` `→` | Move left / right |
-| `↑` | Fire missile |
-| `Space` | Pause / resume |
-| `h` | Toggle help |
-| `s` | Save state |
-| `l` | Load saved state |
-| `q` / `Ctrl+C` | Quit |
-| `Ctrl+D` | Dump state (JSON) and quit |
+| 키 | 동작 |
+|----|------|
+| `←` `→` | 좌우 이동 |
+| `↑` | 미사일 발사 |
+| `Space` | 일시정지 / 재개 |
+| `h` | 도움말 열기 / 닫기 |
+| `s` | 빠른 저장 |
+| `l` | 빠른 불러오기 |
+| `q` / `Ctrl+C` | 종료 |
+| `Ctrl+D` | 복원 가능한 스냅숏 JSON을 출력하고 종료 |
+
+빠른 저장 상태는 현재 실행 중에만 유지된다. 게임은 3초 카운트다운 후 시작한다.
 
 ## Library API
 
@@ -49,13 +55,19 @@ npm start
 const game = require('fp-block');
 ```
 
-### `game.init(rows = 15, columns = 15)`
-Returns the initial game state with all panels.
+### `game.init(options)`
+초기 상태를 만든다. 기존 위치 인자 호출도 지원한다.
 
 ```js
-const state = game.init(15, 15);
-// { bgPanel, shuttlePanel, missilePanel, meteoritePanel }
+const state = game.init({
+  rows: 15,
+  columns: 15,
+  missileCooldownTicks: 3,
+});
+const legacyState = game.init(15, 15);
 ```
+
+보드 크기는 1~500으로 보정된다. 미사일은 기본적으로 발사 후 3 tick 동안 다시 발사할 수 없다.
 
 ### `game.tick(state)`
 Advances the game by one frame. Moves the missile up, meteorite down, and checks for collisions. Returns `state` unchanged when paused.
@@ -86,6 +98,17 @@ Returns `true` if the cell belongs to a missile.
 
 ### `game.makeMeteoriteShape()`
 Returns a random meteorite shape as an array of 7 cell descriptors from a 3×3 grid.
+
+### 공통 상태 API
+
+```js
+const panels = game.toArray(state);
+const interval = game.getTickInterval(state); // 150
+const snapshot = game.serializeState(state);
+const restored = game.restoreState(snapshot);
+```
+
+스냅숏은 `{ game: 'fp-block', version: 1, state }` 형식의 JSON-safe 객체다. 빈 셀은 `isBlank(item)`으로 확인하며 기존 `isBlankItem(item)`도 하위 호환을 위해 유지된다.
 
 ## Demo GIF 업데이트
 
