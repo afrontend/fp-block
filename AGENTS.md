@@ -31,7 +31,9 @@ ESLint + Prettier are configured in `eslint.config.js`; `pretest` runs ESLint, s
 - `lib/__tests__/` — vitest tests per concern (`key`, `tick`, `meteorite`, `pause`, `mutation`, …); `compatibility.test.js` pins the shared API contract
 - `src/example.js` — terminal game; `src/__tests__/format.test.js` tests its formatting
 - `scripts/autoplay.js`, `scripts/make-demo.sh` — automated play for the demo GIF
-- `.github/workflows/demo.yml` — on push to `master`, regenerates the demo GIF
+- `.github/workflows/demo.yml` — on push to `master`, regenerates the demo GIF (asciinema/agg are pinned by version + sha256; bump both together)
+- `.github/workflows/test.yml` — `npm test` on push to `master` and on PRs (incl. Dependabot)
+- Actions are pinned to commit SHAs with a `# vN` comment and updated via Dependabot (`.github/dependabot.yml`: github-actions + npm, monthly); keep the SHA pin when editing by hand. CI runs Node 24.
 
 ## Architecture
 
