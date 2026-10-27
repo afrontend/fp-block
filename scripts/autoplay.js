@@ -2,9 +2,11 @@
 // AI autoplay for fp-block demo recording.
 // Strategy: track meteorite, evade when collision imminent, fire occasionally.
 
-const clear = require("clear");
 const { format } = require("../src/format.js");
 const game = require("../lib/index.js");
+
+// 화면 지우기 + 커서를 맨 위로 (clear 패키지와 같은 시퀀스)
+const clear = () => process.stdout.write("\x1b[2J\x1b[0f");
 
 const ROWS = 15;
 const COLS = 15;
