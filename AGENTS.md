@@ -28,7 +28,7 @@ ESLint + Prettier are configured in `eslint.config.js`; `pretest` runs ESLint, s
 ## Layout
 
 - `lib/index.js` — the library (CJS, hand-written source, not build output)
-- `lib/__tests__/` — vitest tests per concern (`key`, `tick`, `meteorite`, `pause`, `mutation`, …); `compatibility.test.js` pins the shared API contract
+- `lib/__tests__/` — vitest tests per concern (`key`, `tick`, `meteorite`, `pause`, `mutation`, …); `compatibility.test.js` runs the shared contract from `fp-panel/testing` (`runGameContract`) plus the game-specific API checks
 - `src/example.js` — terminal game (`src/format.js` renders the board; `src/__tests__/format.test.js` tests it); uses only Node built-ins (`util.styleText`, `util.parseArgs`, `readline.emitKeypressEvents`, ANSI clear), so the sole runtime dependency is `fp-panel`
 - `scripts/autoplay.js`, `scripts/make-demo.sh` — automated play for the demo GIF
 - `.github/workflows/demo.yml` — on push to `master`, regenerates the demo GIF (asciinema/agg are pinned by version + sha256; bump both together)
